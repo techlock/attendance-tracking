@@ -1,0 +1,69 @@
+<head>
+  <h1>AttenLogger</h1>
+  <link rel="stylesheet" type="text/css" href="attendance-tracking.css">
+</head>
+<body>
+  <div class="container">
+    <form class="new-task">
+      <div class="col-xs-3">
+        <form>
+            <div class="form-group">
+              <div class="col-xs-12">
+              <input name="firstName" type="text" placeholder="First Name" class="form-control"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+              <input name="lastName"  type="text" placeholder="Last Name" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+              <input name="rank" type="text"  placeholder="Rank" class="form-control" />
+              </div>    
+            </div>
+
+            <div class="form-group">
+              <div class= "col-xs-12">
+                <input name="capid"  type="number" placeholder="CAP ID" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+                <input name="timein" type="number" placeholder="Time In" class="form-control" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="col-xs-12">
+                <input type="submit" class="btn btn-default" />
+              </div>
+            </div>
+      </form>
+        </div>
+<div class="col-xs-11"></div>
+    	</form>    
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+  </div>
+
+</body>
+
+<template name="task">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    <span class="text">{{lastName}}</span>
+    <span class="text">{{firstName}}</span>
+    <span class="text">{{rank}}</span>
+    <span class="text">{{capid}}</span>
+    <span class="text">{{timein}}</span>
+  </li>
+</template>
