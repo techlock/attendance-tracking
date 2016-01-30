@@ -1,0 +1,53 @@
+Tasks = new Mongo.Collection("tasks");
+
+if (Meteor.isClient) {
+  // This code only runs on the client
+  Template.body.helpers({
+    tasks: function () {
+      // Show newest tasks at the top
+      return Tasks.find({}, {sort: {name: "asc"}});
+    }
+  });
+
+  Template.body.events({
+    "submit .new-task": function (event, template) {
+      // Prevent default browser form submit
+      event.preventDefault();
+      console.log(event.target)
+      // Get value from form element
+      var firstName = event.target.firstName.value;
+      var lastName = event.target.lastName.value;
+      var rank = event.target.rank.value;
+      var capid= event.target.capid.value;
+      var timein = event.target.timein.value;
+      
+
+
+
+      // Insert a task into the collection
+      Tasks.insert({
+        firstName: firstName,
+        lastName: lastName,
+        rank: rank,
+        capid: capid,
+        timein: timein,
+        createdAt: new Date() // current time
+      });
+
+      // Clear form
+      template.find('form').reset();
+    }
+  });
+
+  Template.task.events({
+    "click .toggle-checked": function () {
+      // Set the checked property to the opposite of its current value
+      Tasks.update(this._id, {
+        $set: {checked: ! this.checked}
+      });
+    },
+    "click .delete": function () {
+      Tasks.remove(this._id);
+    }
+  });
+}
